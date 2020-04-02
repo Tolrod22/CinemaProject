@@ -10,10 +10,10 @@
 <h2>Choose the cinema to manage are add a new one</h2>
 <br>
 <h2>Add a cinema :</h2>
-<form action="cinemaCreation" method="post" >
-    <input id="nameInput" type="text" name="name" placeholder="Name" />
-    <input id="addressInput" type="text" name="address" placeholder="Address" />
-    <input id="postalCodeInput" type="number" name="postalCode" placeholder="PostalCode" />
+<form action="cinemaCreation" method="post">
+    <input id="nameInput" type="text" name="name" placeholder="Name"/>
+    <input id="addressInput" type="text" name="address" placeholder="Address"/>
+    <input id="postalCodeInput" type="number" name="postalCode" placeholder="PostalCode"/>
     <input type="submit" value="Create"/>
 </form>
 <br>
@@ -25,9 +25,13 @@
             <td>${cine.name}</td>
             <td>${cine.address}</td>
             <td>${cine.postalCode}</td>
-
-<%--            ajouter le nombre d'employé--%>
-            <td><a href="cine?id=${cine.idCinema}">detail</a></td>
+                <%--            ajouter le nombre d'employé--%>
+            <td>
+                <form action="cinemaCreation" method="post">
+                    <input type="hidden" name="idCinema" value="${cine.idCinema}"/>
+                    <input type="submit" value="Create"/>
+                </form>
+            </td>
         </tr>
     </c:forEach>
 </table>

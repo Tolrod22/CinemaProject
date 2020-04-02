@@ -10,15 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
-import java.util.Vector;
 
 @WebServlet(name = "cinemaCreation", urlPatterns = {"/cinemaCreation"})
 public class CinemaCreation extends HttpServlet {
 
     public static final String VIEW = "/creationCinema.jsp";
-    public static final String VIEWTEST = "/test.jsp";
 
     @EJB
     private CinemaServiceLocal cinemaService;
@@ -33,13 +30,11 @@ public class CinemaCreation extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        if(request.getParameter("id") != null) System.out.println(request.getParameter("id"));
         List<Cinema> cinemas = cinemaService.getAllCinema();
-
-        request.setAttribute("cinemas", cinemas); // Will be available as ${products} in JSP
+        request.setAttribute("cinemas", cinemas);
         request.getRequestDispatcher(VIEW).forward(request, response);
     }
-
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -51,18 +46,14 @@ public class CinemaCreation extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-
-        try (PrintWriter out = response.getWriter()) {
+        if(request.getParameter("idCinema") == null){
             String name = request.getParameter("name");
             String address = request.getParameter("address");
             String postalCode = request.getParameter("postalCode");
-
             cinemaService.createCinema(name, address, Integer.parseInt(postalCode));
-
-            //Trouver comment passer des informations entre les pages
-            response.sendRedirect("/CinemaProject/test.jsp");
+            response.sendRedirect("/CinemaProject/cinemaCreation");
+        } else {
+            response.sendRedirect("/CinemaProject/test.jsp?id="+request.getParameter("idCinema"));
         }
-
     }
 }
