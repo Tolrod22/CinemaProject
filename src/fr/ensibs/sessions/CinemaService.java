@@ -26,10 +26,6 @@ public class CinemaService implements CinemaServiceLocal, CinemaServiceRemote{
     @Override
     public List<Cinema> getAllCinema() {
         Query q = em.createQuery("select c from Cinema c");
-        List<Cinema> cinemaList = q.getResultList();
-        for (Cinema cine : cinemaList) {
-            System.out.println(cine.toString());
-        }
-        return cinemaList;
+        return (List<Cinema>) q.getResultList();
     }
 }

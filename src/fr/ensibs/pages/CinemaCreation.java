@@ -1,11 +1,9 @@
 package fr.ensibs.pages;
 
 import fr.ensibs.entities.Cinema;
-import fr.ensibs.sessions.CinemaService;
 import fr.ensibs.sessions.CinemaServiceLocal;
 
 import javax.ejb.EJB;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+import java.util.Vector;
 
 @WebServlet(name = "cinemaCreation", urlPatterns = {"/cinemaCreation"})
 public class CinemaCreation extends HttpServlet {
@@ -33,8 +33,13 @@ public class CinemaCreation extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher(VIEW).forward(request,response);
+
+        List<Cinema> cinemas = cinemaService.getAllCinema();
+
+        request.setAttribute("cinemas", cinemas); // Will be available as ${products} in JSP
+        request.getRequestDispatcher(VIEW).forward(request, response);
     }
+
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -54,8 +59,6 @@ public class CinemaCreation extends HttpServlet {
             String postalCode = request.getParameter("postalCode");
 
             cinemaService.createCinema(name, address, Integer.parseInt(postalCode));
-
-            cinemaService.getAllCinema();
 
             //Trouver comment passer des informations entre les pages
             response.sendRedirect("/CinemaProject/test.jsp");

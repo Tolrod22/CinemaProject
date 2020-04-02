@@ -4,6 +4,8 @@
   <title>Starting bage</title>
 </head>
 <body>
-Hello There
+<h1>Welcome on EJBCineManager</h1>
+<h3>Please click on the link to start using the application.</h3>
+<a href="/CinemaProject/cinemaCreation">Get started</a>
 </body>
 </html>
