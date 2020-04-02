@@ -20,9 +20,7 @@ public class Employee implements Serializable {
 
     private double salary;
 
-
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Cinema cinema;
 
     public Employee() {
@@ -76,5 +74,16 @@ public class Employee implements Serializable {
 
     public void setCinema(Cinema cinema) {
         this.cinema = cinema;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "idEmployee=" + idEmployee +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", age=" + age +
+                ", salary=" + salary +
+                '}';
     }
 }

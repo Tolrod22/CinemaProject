@@ -1,6 +1,7 @@
 package fr.ensibs.pages;
 
 import fr.ensibs.entities.Cinema;
+import fr.ensibs.entities.Employee;
 import fr.ensibs.sessions.CinemaServiceLocal;
 import fr.ensibs.sessions.EmployeeServiceLocal;
 
@@ -13,18 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "employeeCreation", urlPatterns = {"/employeeCreation"})
-public class EmployeeCreation extends HttpServlet {
+@WebServlet(name = "management", urlPatterns = {"/management"})
+public class Management extends HttpServlet {
 
-    public static final String VIEW = "/creationEmployee.jsp";
-
-    @EJB
-    private EmployeeServiceLocal employeeService;
+    public static final String VIEW = "/management.jsp";
 
     @EJB
     private CinemaServiceLocal cinemaService;
 
-    private Cinema cinema;
+    @EJB
+    private EmployeeServiceLocal employeeService;
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -36,8 +35,11 @@ public class EmployeeCreation extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        cinema = cinemaService.getCinemaFrom(Long.parseLong(request.getParameter("id")));
+        if(request.getParameter("id") != null){
+            Cinema tmp = cinemaService.getCinemaFrom(Long.parseLong(request.getParameter("id")));
+            //TODO Afficher la liste des employees de tmp dans la page (comme dans CinemaCreation)
+            request.setAttribute("cinema", tmp);
+        }
         request.getRequestDispatcher(VIEW).forward(request, response);
     }
 
@@ -51,11 +53,10 @@ public class EmployeeCreation extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = request.getParameter("name");
-        String surname = request.getParameter("surname");
-        String age = request.getParameter("age");
-        String salary = request.getParameter("salary");
-        employeeService.createEmployee(name, surname, Integer.parseInt(age), Integer.parseInt(salary), cinema);
-        response.sendRedirect("/CinemaProject/management?id=" + cinema.getIdCinema());
+        if(request.getParameter("employeeAddTo") == null){
+            //TODO movie and ticket
+        } else {
+            response.sendRedirect("/CinemaProject/employeeCreation?id="+request.getParameter("employeeAddTo"));
+        }
     }
 }

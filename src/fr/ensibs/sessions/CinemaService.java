@@ -28,4 +28,10 @@ public class CinemaService implements CinemaServiceLocal, CinemaServiceRemote{
         Query q = em.createQuery("select c from Cinema c");
         return (List<Cinema>) q.getResultList();
     }
+
+    @Override
+    public Cinema getCinemaFrom(Long idCinema) {
+        Query q = em.createQuery("select c from Cinema c where c.idCinema = :id").setParameter("id", idCinema);
+        return (Cinema) q.getResultList().get(0);
+    }
 }

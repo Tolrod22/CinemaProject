@@ -11,4 +11,6 @@ public interface CinemaServiceRemote {
     void createCinema(String name, String address, int postalCode);
 
     List<Cinema> getAllCinema();
+
+    Cinema getCinemaFrom(Long id);
 }

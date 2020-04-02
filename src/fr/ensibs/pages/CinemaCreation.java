@@ -30,7 +30,6 @@ public class CinemaCreation extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(request.getParameter("id") != null) System.out.println(request.getParameter("id"));
         List<Cinema> cinemas = cinemaService.getAllCinema();
         request.setAttribute("cinemas", cinemas);
         request.getRequestDispatcher(VIEW).forward(request, response);
@@ -53,7 +52,7 @@ public class CinemaCreation extends HttpServlet {
             cinemaService.createCinema(name, address, Integer.parseInt(postalCode));
             response.sendRedirect("/CinemaProject/cinemaCreation");
         } else {
-            response.sendRedirect("/CinemaProject/test.jsp?id="+request.getParameter("idCinema"));
+            response.sendRedirect("/CinemaProject/management?id="+request.getParameter("idCinema"));
         }
     }
 }

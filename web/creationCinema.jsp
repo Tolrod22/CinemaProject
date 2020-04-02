@@ -29,7 +29,7 @@
             <td>
                 <form action="cinemaCreation" method="post">
                     <input type="hidden" name="idCinema" value="${cine.idCinema}"/>
-                    <input type="submit" value="Create"/>
+                    <input type="submit" value="Manage"/>
                 </form>
             </td>
         </tr>
