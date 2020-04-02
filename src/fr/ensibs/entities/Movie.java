@@ -6,7 +6,7 @@ import java.util.List;
 
 @Entity
 @DiscriminatorValue("movie")
-public class Movie extends Employee {
+public class Movie {
 
     @Id
     @GeneratedValue
