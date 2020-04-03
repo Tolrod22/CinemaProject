@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: zefzf
@@ -17,6 +18,18 @@
     <input type="hidden" name="employeeAddTo" value="${cinema.idCinema}"/>
     <input type="submit" value="Add employee"/>
 </form>
+<table>
+    <c:forEach items="${employees}" var="employee">
+        <tr>
+            <td>- </td>
+            <td>${employee.name}</td>
+            <td>${employee.surname}</td>
+            <td>,${employee.age}</td>
+            <td>,${employee.salary}</td>
+<%--            TODO ajouter bouton de suppression et de modification--%>
+        </tr>
+    </c:forEach>
+</table>
 
 <br><h3>Manage your movies :</h3>
 

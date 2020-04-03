@@ -20,13 +20,12 @@ public class Employee implements Serializable {
 
     private double salary;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Cinema cinema;
 
     public Employee() {
     }
 
-    @Column(name = "employee_id")
     public Long getIdEmployee() {
         return idEmployee;
     }
@@ -35,7 +34,6 @@ public class Employee implements Serializable {
         this.idEmployee = idEmployee;
     }
 
-    @Column(name = "employee_name")
     public String getName() {
         return name;
     }
@@ -44,12 +42,10 @@ public class Employee implements Serializable {
         this.name = name;
     }
 
-    @Column(name = "employee_surname")
     public String getSurname() { return surname; }
 
     public void setSurname(String surname) { this.surname = surname; }
 
-    @Column(name = "employee_age")
     public int getAge() {
         return age;
     }
@@ -58,7 +54,6 @@ public class Employee implements Serializable {
         this.age = age;
     }
 
-    @Column(name = "employee_salary")
     public double getSalary() {
         return salary;
     }
@@ -67,7 +62,6 @@ public class Employee implements Serializable {
         this.salary = salary;
     }
 
-    @Column(name = "employee_cinema")
     public Cinema getCinema() {
         return cinema;
     }
@@ -84,6 +78,7 @@ public class Employee implements Serializable {
                 ", surname='" + surname + '\'' +
                 ", age=" + age +
                 ", salary=" + salary +
+                ", cinema=" + cinema.getName() +
                 '}';
     }
 }

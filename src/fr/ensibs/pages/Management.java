@@ -37,7 +37,8 @@ public class Management extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if(request.getParameter("id") != null){
             Cinema tmp = cinemaService.getCinemaFrom(Long.parseLong(request.getParameter("id")));
-            //TODO Afficher la liste des employees de tmp dans la page (comme dans CinemaCreation)
+            List<Employee> employees = (List<Employee>) tmp.getEmployees();
+            request.setAttribute("employees", employees);
             request.setAttribute("cinema", tmp);
         }
         request.getRequestDispatcher(VIEW).forward(request, response);

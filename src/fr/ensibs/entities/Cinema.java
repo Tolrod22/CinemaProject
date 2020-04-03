@@ -29,13 +29,12 @@ public class Cinema implements Serializable {
     )
     private List<Employee> employees = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "cinemas")
     private List<Movie> movies = new Vector<>();;
 
     public Cinema() {
     }
 
-    @Column(name = "cinema_id")
     public Long getIdCinema() {
         return idCinema;
     }
@@ -44,7 +43,6 @@ public class Cinema implements Serializable {
         this.idCinema = idCinema;
     }
 
-    @Column(name = "cinema_name")
     public String getName() {
         return name;
     }
@@ -53,7 +51,6 @@ public class Cinema implements Serializable {
         this.name = name;
     }
 
-    @Column(name = "cinema_address")
     public String getAddress() {
         return address;
     }
@@ -62,7 +59,6 @@ public class Cinema implements Serializable {
         this.address = address;
     }
 
-    @Column(name = "cinema_postalCode")
     public int getPostalCode() {
         return postalCode;
     }
@@ -71,7 +67,6 @@ public class Cinema implements Serializable {
         this.postalCode = postalCode;
     }
 
-    @Column(name = "cinema_employees")
     public void addEmployee(Employee emp) {
         employees.add(emp);
         emp.setCinema(this);
@@ -89,7 +84,6 @@ public class Cinema implements Serializable {
         this.employees = employees;
     }
 
-    @Column(name = "cinema_movies")
     public List<Movie> getMovies() {
         return movies;
     }
@@ -105,8 +99,8 @@ public class Cinema implements Serializable {
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", postalCode=" + postalCode +
-                ", employees=" + employees +
-                ", movies=" + movies +
+                ", NbEmployees=" + employees.size() +
+                ", NbMovies=" + movies.size() +
                 '}';
     }
 }
