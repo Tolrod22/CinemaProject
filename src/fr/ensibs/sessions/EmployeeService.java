@@ -3,11 +3,9 @@ package fr.ensibs.sessions;
 import fr.ensibs.entities.Cinema;
 import fr.ensibs.entities.Employee;
 
-import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import java.util.List;
 
 @Stateless
@@ -31,5 +29,12 @@ public class EmployeeService implements EmployeeServiceLocal, EmployeeServiceRem
     @Override
     public List<Employee> getAllEmployees(Cinema cinema) {
         return em.createQuery("SELECT e FROM Employee e WHERE e.cinema = :cinemaId", Employee.class).setParameter("cinemaId", cinema).getResultList();
+    }
+
+    @Override
+    public void removeEmployee(Long id, Long idCinema) {
+        Employee toRemove = em.createQuery("SELECT e FROM Employee e WHERE e.idEmployee = :employeeId", Employee.class).setParameter("employeeId", id).getSingleResult();
+        em.remove(toRemove);
+        em.getEntityManagerFactory().getCache().evict(Cinema.class, idCinema);
     }
 }

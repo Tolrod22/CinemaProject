@@ -17,8 +17,10 @@ public class Ticket implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date endValidation;
 
-    public Ticket() {
-    }
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Movie movie;
+
+    public Ticket() { }
 
     public Long getIdTicket() { return idTicket; }
 
@@ -31,4 +33,8 @@ public class Ticket implements Serializable {
     public Date getEndValidation() { return endValidation; }
 
     public void setEndValidation(Date endValidation) { this.endValidation = endValidation; }
+
+    public Movie getMovie() { return movie; }
+
+    public void setMovie(Movie movie) { this.movie = movie; }
 }

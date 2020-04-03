@@ -22,8 +22,13 @@ public class Movie implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date endingDate;
 
-    @OneToMany
-    private List<Ticket> tickets;
+    @OneToMany(
+            mappedBy = "movie",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER
+    )
+    private List<Ticket> tickets = new ArrayList<>();;
 
     @ManyToMany
     @JoinTable
@@ -57,5 +62,9 @@ public class Movie implements Serializable {
 
     public void addCinema(Cinema cinema) {
         cinemas.add(cinema);
+    }
+
+    public void addTicket(Ticket ticket) {
+        tickets.add(ticket);
     }
 }

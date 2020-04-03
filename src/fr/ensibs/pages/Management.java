@@ -27,6 +27,9 @@ public class Management extends HttpServlet {
     @EJB
     private MovieServiceLocal movieService;
 
+    @EJB
+    private EmployeeServiceLocal employeeService;
+
     private Cinema theCinema;
 
     /**
@@ -70,6 +73,9 @@ public class Management extends HttpServlet {
             response.sendRedirect("/CinemaProject/management?id="+theCinema.getIdCinema());
         } else if(request.getParameter("ticketToAdd") != null){
             System.out.println("Redirecting to add tickets to "+request.getParameter("ticketToAdd"));
+        } else if(request.getParameter("employeeToDelete") != null){
+            employeeService.removeEmployee(Long.parseLong(request.getParameter("employeeToDelete")), theCinema.getIdCinema());
+            response.sendRedirect("/CinemaProject/management?id="+theCinema.getIdCinema());
         } else {
             System.out.println("Nothing to do now");
         }

@@ -12,4 +12,6 @@ public interface EmployeeServiceRemote {
     void createEmployee(String name, String surname, int age, int salary, Cinema cinema);
 
     List<Employee> getAllEmployees(Cinema cinema);
+
+    void removeEmployee(Long id, Long idCinema);
 }

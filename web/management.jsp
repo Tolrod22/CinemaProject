@@ -26,7 +26,13 @@
             <td>${employee.surname}</td>
             <td>,${employee.age}</td>
             <td>,${employee.salary}</td>
-                <%--            TODO ajouter bouton de suppression et de modification--%>
+            <td>
+                <form action="management" method="post">
+                    <input type="hidden" name="employeeToDelete" value="${employee.idEmployee}"/>
+                    <input type="submit" value="Remove"/>
+                </form>
+            </td>
+                <%--            TODO ajouter bouton de modification--%>
         </tr>
     </c:forEach>
 </table>
