@@ -25,7 +25,7 @@
             <td>${cine.name}</td>
             <td>${cine.address}</td>
             <td>${cine.postalCode}</td>
-                <%--            ajouter le nombre d'employé--%>
+                <%--            TODO afficher le nombre d'employé et le nombre de film disponible--%>
             <td>
                 <form action="cinemaCreation" method="post">
                     <input type="hidden" name="idCinema" value="${cine.idCinema}"/>

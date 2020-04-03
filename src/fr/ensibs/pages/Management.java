@@ -2,8 +2,10 @@ package fr.ensibs.pages;
 
 import fr.ensibs.entities.Cinema;
 import fr.ensibs.entities.Employee;
+import fr.ensibs.entities.Movie;
 import fr.ensibs.sessions.CinemaServiceLocal;
 import fr.ensibs.sessions.EmployeeServiceLocal;
+import fr.ensibs.sessions.MovieServiceLocal;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -23,7 +25,9 @@ public class Management extends HttpServlet {
     private CinemaServiceLocal cinemaService;
 
     @EJB
-    private EmployeeServiceLocal employeeService;
+    private MovieServiceLocal movieService;
+
+    private Cinema theCinema;
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -36,10 +40,13 @@ public class Management extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if(request.getParameter("id") != null){
-            Cinema tmp = cinemaService.getCinemaFrom(Long.parseLong(request.getParameter("id")));
-            List<Employee> employees = (List<Employee>) tmp.getEmployees();
+            theCinema = cinemaService.getCinemaFrom(Long.parseLong(request.getParameter("id")));
+            System.out.println(theCinema.toString());
+            List<Employee> employees = (List<Employee>) theCinema.getEmployees();
+            List<Movie> movies = theCinema.getMovies();
             request.setAttribute("employees", employees);
-            request.setAttribute("cinema", tmp);
+            request.setAttribute("movies", movies);
+            request.setAttribute("cinema", theCinema);
         }
         request.getRequestDispatcher(VIEW).forward(request, response);
     }
@@ -54,10 +61,17 @@ public class Management extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(request.getParameter("employeeAddTo") == null){
-            //TODO movie and ticket
-        } else {
+        if(request.getParameter("employeeAddTo") != null){
             response.sendRedirect("/CinemaProject/employeeCreation?id="+request.getParameter("employeeAddTo"));
+        } else if(request.getParameter("movieAddTo") != null){
+            response.sendRedirect("/CinemaProject/movieCreation?id="+request.getParameter("movieAddTo"));
+        } else if(request.getParameter("movieToDelete") != null){
+            movieService.removeMovie(Long.parseLong(request.getParameter("movieToDelete")), theCinema.getIdCinema());
+            response.sendRedirect("/CinemaProject/management?id="+theCinema.getIdCinema());
+        } else if(request.getParameter("ticketToAdd") != null){
+            System.out.println("Redirecting to add tickets to "+request.getParameter("ticketToAdd"));
+        } else {
+            System.out.println("Nothing to do now");
         }
     }
 }

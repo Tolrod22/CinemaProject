@@ -1,12 +1,14 @@
 package fr.ensibs.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @DiscriminatorValue("movie")
-public class Movie {
+public class Movie implements Serializable {
 
     @Id
     @GeneratedValue
@@ -14,8 +16,10 @@ public class Movie {
 
     private String title;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date startingDate;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date endingDate;
 
     @OneToMany
@@ -23,8 +27,7 @@ public class Movie {
 
     @ManyToMany
     @JoinTable
-    private List<Cinema> cinemas;
-
+    private List<Cinema> cinemas = new ArrayList<>();
     public Movie() {
     }
 
@@ -51,4 +54,8 @@ public class Movie {
     public List<Ticket> getTickets() { return tickets; }
 
     public void setTickets(List<Ticket> tickets) { this.tickets = tickets; }
+
+    public void addCinema(Cinema cinema) {
+        cinemas.add(cinema);
+    }
 }

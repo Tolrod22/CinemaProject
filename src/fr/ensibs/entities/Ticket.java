@@ -1,11 +1,12 @@
 package fr.ensibs.entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @DiscriminatorValue("ticket")
-public class Ticket {
+public class Ticket implements Serializable {
 
     @Id
     @GeneratedValue
