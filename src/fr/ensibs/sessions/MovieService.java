@@ -28,7 +28,7 @@ public class MovieService implements MovieServiceLocal, MovieServiceRemote {
 
     @Override
     public List<Movie> getAllMovie() {
-        return em.createQuery("SELECT m FROM Movie m" , Movie.class).getResultList();
+        return em.createQuery("SELECT m FROM Movie m", Movie.class).getResultList();
     }
 
     @Override

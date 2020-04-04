@@ -1,6 +1,5 @@
 package fr.ensibs.entities;
 
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ public class Cinema implements Serializable {
     private List<Employee> employees = new ArrayList<>();
 
     @ManyToMany(mappedBy = "cinemas")
-    private List<Movie> movies = new Vector<>();;
+    private List<Movie> movies = new Vector<>();
 
     public Cinema() {
     }
@@ -76,6 +75,7 @@ public class Cinema implements Serializable {
         employees.remove(emp);
         emp.setCinema(null);
     }
+
     public Collection<Employee> getEmployees() {
         return employees;
     }

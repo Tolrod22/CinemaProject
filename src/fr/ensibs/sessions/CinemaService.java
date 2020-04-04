@@ -9,7 +9,7 @@ import javax.persistence.Query;
 import java.util.List;
 
 @Stateless
-public class CinemaService implements CinemaServiceLocal, CinemaServiceRemote{
+public class CinemaService implements CinemaServiceLocal, CinemaServiceRemote {
 
     @PersistenceContext(unitName = "cinema")
     private EntityManager em;

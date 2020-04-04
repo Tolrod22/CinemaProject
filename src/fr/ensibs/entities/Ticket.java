@@ -20,21 +20,38 @@ public class Ticket implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     private Movie movie;
 
-    public Ticket() { }
+    public Ticket() {
+    }
 
-    public Long getIdTicket() { return idTicket; }
+    public Long getIdTicket() {
+        return idTicket;
+    }
 
-    public void setIdTicket(Long idTicket) { this.idTicket = idTicket; }
+    public void setIdTicket(Long idTicket) {
+        this.idTicket = idTicket;
+    }
 
-    public double getPrice() { return price; }
+    public double getPrice() {
+        return price;
+    }
 
-    public void setPrice(double price) { this.price = price; }
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
-    public Date getEndValidation() { return endValidation; }
+    public Date getEndValidation() {
+        return endValidation;
+    }
 
-    public void setEndValidation(Date endValidation) { this.endValidation = endValidation; }
+    public void setEndValidation(Date endValidation) {
+        this.endValidation = endValidation;
+    }
 
-    public Movie getMovie() { return movie; }
+    public Movie getMovie() {
+        return movie;
+    }
 
-    public void setMovie(Movie movie) { this.movie = movie; }
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+    }
 }

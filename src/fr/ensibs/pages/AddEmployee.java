@@ -2,6 +2,7 @@ package fr.ensibs.pages;
 
 import fr.ensibs.entities.Cinema;
 import fr.ensibs.sessions.CinemaServiceLocal;
+import fr.ensibs.sessions.EmployeeServiceLocal;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -10,15 +11,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet(name = "cinemaCreation", urlPatterns = {"/cinemaCreation"})
-public class CinemaCreation extends HttpServlet {
+@WebServlet(name = "addEmployee", urlPatterns = {"/addEmployee"})
+public class AddEmployee extends HttpServlet {
 
-    public static final String VIEW = "/creationCinema.jsp";
+    public static final String VIEW = "/addEmployee.jsp";
+
+    @EJB
+    private EmployeeServiceLocal employeeService;
 
     @EJB
     private CinemaServiceLocal cinemaService;
+
+    private Cinema cinema;
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -30,8 +35,7 @@ public class CinemaCreation extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Cinema> cinemas = cinemaService.getAllCinema();
-        request.setAttribute("cinemas", cinemas);
+        this.cinema = this.cinemaService.getCinemaFrom(Long.parseLong(request.getParameter("id")));
         request.getRequestDispatcher(VIEW).forward(request, response);
     }
 
@@ -40,19 +44,19 @@ public class CinemaCreation extends HttpServlet {
      *
      * @param request  servlet request
      * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException      if an I/O error occurs
+     * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(request.getParameter("idCinema") == null){
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try {
             String name = request.getParameter("name");
-            String address = request.getParameter("address");
-            String postalCode = request.getParameter("postalCode");
-            cinemaService.createCinema(name, address, Integer.parseInt(postalCode));
-            response.sendRedirect("/CinemaProject/cinemaCreation");
-        } else {
-            response.sendRedirect("/CinemaProject/management?id="+request.getParameter("idCinema"));
+            String surname = request.getParameter("surname");
+            int age = Integer.parseInt(request.getParameter("age"));
+            int salary = Integer.parseInt(request.getParameter("salary"));
+            this.employeeService.createEmployee(name, surname, age, salary, this.cinema);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+        response.sendRedirect("/CinemaProject/manageCinema?id=" + this.cinema.getIdCinema());
     }
 }
