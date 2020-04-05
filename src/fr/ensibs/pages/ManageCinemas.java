@@ -50,10 +50,13 @@ public class ManageCinemas extends HttpServlet {
             String postalCode = request.getParameter("cinemaPostalCode");
             this.cinemaService.createCinema(name, address, Integer.parseInt(postalCode));
             response.sendRedirect("/CinemaProject/manageCinemas");
+
         } else if (request.getParameter("idCinemaToManage") != null) {
             response.sendRedirect("/CinemaProject/manageCinema?id=" + request.getParameter("idCinemaToManage"));
+
         } else if (request.getParameter("idCinemaToDelete") != null) {
-            // TODO DELETE THE CINEMA
+            cinemaService.removeCinema(Long.parseLong(request.getParameter("idCinemaToDelete")));
+            response.sendRedirect("/CinemaProject/manageCinemas");
         }
     }
 }

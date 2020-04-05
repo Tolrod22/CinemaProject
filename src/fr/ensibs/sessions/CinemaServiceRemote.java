@@ -13,4 +13,6 @@ public interface CinemaServiceRemote {
     List<Cinema> getAllCinema();
 
     Cinema getCinemaFrom(Long id);
+
+    void removeCinema(Long id);
 }

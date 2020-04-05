@@ -1,6 +1,7 @@
 package fr.ensibs.sessions;
 
 import fr.ensibs.entities.Cinema;
+import fr.ensibs.entities.Employee;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -33,5 +34,12 @@ public class CinemaService implements CinemaServiceLocal, CinemaServiceRemote {
     public Cinema getCinemaFrom(Long idCinema) {
         Query q = em.createQuery("select c from Cinema c where c.idCinema = :id").setParameter("id", idCinema);
         return (Cinema) q.getResultList().get(0);
+    }
+
+    @Override
+    public void removeCinema(Long id){
+        Cinema toRemove = em.createQuery("SELECT c FROM Cinema c WHERE c.idCinema = :cinemaId", Cinema.class).setParameter("cinemaId", id).getSingleResult();
+        em.remove(toRemove);
+        toRemove.getEmployees().forEach(employee -> em.getEntityManagerFactory().getCache().evict(Employee.class, employee.getIdEmployee()));
     }
 }
