@@ -17,4 +17,6 @@ public interface MovieServiceRemote {
     Movie getMovieFrom(Long id);
 
     void removeMovie(Long id, Long idCinema);
+
+    Movie getMovieByTitle(String movieTitle);
 }

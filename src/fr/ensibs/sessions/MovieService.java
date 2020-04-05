@@ -17,12 +17,18 @@ public class MovieService implements MovieServiceLocal, MovieServiceRemote {
 
     @Override
     public void createMovie(String title, Date startingDate, Date endingDate, Cinema cinema) {
-        Movie movie = new Movie();
-        movie.addCinema(cinema);
-        movie.setTitle(title);
-        movie.setStartingDate(startingDate);
-        movie.setEndingDate(endingDate);
-        em.persist(movie);
+        Movie testing = getMovieByTitle(title);
+        if(testing == null){
+            Movie movie = new Movie();
+            movie.addCinema(cinema);
+            movie.setTitle(title);
+            movie.setStartingDate(startingDate);
+            movie.setEndingDate(endingDate);
+            em.persist(movie);
+        } else {
+            testing.addCinema(cinema);
+            em.merge(testing);
+        }
         em.getEntityManagerFactory().getCache().evict(Cinema.class, cinema.getIdCinema());
     }
 
@@ -41,5 +47,15 @@ public class MovieService implements MovieServiceLocal, MovieServiceRemote {
         Movie toRemove = em.createQuery("SELECT m FROM Movie m WHERE m.idMovie = :movieId", Movie.class).setParameter("movieId", id).getSingleResult();
         em.remove(toRemove);
         em.getEntityManagerFactory().getCache().evict(Cinema.class, idCinema);
+    }
+
+    @Override
+    public Movie getMovieByTitle(String title) {
+        try{
+            return em.createQuery("SELECT m FROM Movie m WHERE m.title = :movieTitle", Movie.class).setParameter("movieTitle", title).getSingleResult();
+        } catch (Exception e){
+            System.out.println("No movie with this title");
+            return null;
+        }
     }
 }

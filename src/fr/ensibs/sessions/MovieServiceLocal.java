@@ -16,4 +16,6 @@ public interface MovieServiceLocal {
     Movie getMovieFrom(Long id);
 
     void removeMovie(Long id, Long idCinema);
+
+    Movie getMovieByTitle(String movieTitle);
 }
