@@ -2,25 +2,30 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Cinema Management</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>${cinema.name} : Management</title>
+    <link rel="stylesheet" href="css/materialize.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-<nav>
-    <div class="nav-wrapper blue darken-4">
-        <a href="../${pageContext.request.contextPath}" class="brand-logo center"><i class="material-icons">movie</i>EJBCineManager</a>
-    </div>
-</nav>
-<div class="container">
-    <form action="manageCinema" method="post">
-        <h2>${cinema.name} management center
-            <input type="hidden" name="idCinemaToEdit" value="${cinema.idCinema}"/>
-            <button class="btn-floating btn-large waves-effect waves-light blue darken-4"><i
-                    class="material-icons">edit</i></button>
-        </h2>
-    </form>
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper blue darken-4">
+            <a href="../${pageContext.request.contextPath}" class="brand-logo center"><i
+                    class="material-icons">movie</i>${cinema.name}</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li>
+                    <form action="manageCinema" method="post">
+                        <input type="hidden" name="idCinemaToEdit" value="${cinema.idCinema}"/>
+                        <button class="btn-floating btn-large waves-effect waves-light blue darken-4"><i
+                                class="material-icons">edit</i></button>
 
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<div class="container">
     <h3>Manage your employees :</h3>
 
     <form action="manageCinema" method="post">
@@ -71,7 +76,7 @@
     <h3>Manage your movies and tickets :</h3>
 
     <form action="manageCinema" method="post">
-        <h4>Add an movie :
+        <h4>Add a movie :
             <input type="hidden" name="idCinemaToAddMovie" value="${cinema.idCinema}"/>
             <button class="btn-floating btn-large waves-effect waves-light blue darken-4"><i
                     class="material-icons">add</i></button>
