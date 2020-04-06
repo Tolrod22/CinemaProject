@@ -15,4 +15,6 @@ public interface CinemaServiceRemote {
     Cinema getCinemaFrom(Long id);
 
     void removeCinema(Long id);
+
+    void editCinema(Long id, String name, String address, Integer postalCode);
 }

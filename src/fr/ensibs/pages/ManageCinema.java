@@ -64,18 +64,24 @@ public class ManageCinema extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (request.getParameter("idEmployeeToEdit") != null) {
             response.sendRedirect("/CinemaProject/editEmployee?id=" + request.getParameter("idEmployeeToEdit"));
+
         } else if (request.getParameter("idEmployeeToRemove") != null) {
             this.employeeService.removeEmployee(Long.parseLong(request.getParameter("idEmployeeToRemove")), this.cinema.getIdCinema());
             response.sendRedirect("/CinemaProject/manageCinema?id=" + this.cinema.getIdCinema());
+
         } else if (request.getParameter("idCinemaToAddEmployee") != null) {
             response.sendRedirect("/CinemaProject/addEmployee?id=" + this.cinema.getIdCinema());
+
         } else if (request.getParameter("idMovieToManage") != null) {
             response.sendRedirect("/CinemaProject/manageMovie?id=" + request.getParameter("idMovieToManage"));
+
         } else if (request.getParameter("idCinemaToAddMovie") != null) {
             response.sendRedirect("/CinemaProject/addMovie?id=" + this.cinema.getIdCinema());
+
         } else if (request.getParameter("idMovieToDelete") != null) {
             this.movieService.removeMovie(Long.parseLong(request.getParameter("idMovieToDelete")), this.cinema.getIdCinema());
             response.sendRedirect("/CinemaProject/manageCinema?id=" + this.cinema.getIdCinema());
+
         } else if (request.getParameter("idCinemaToEdit") != null) {
             response.sendRedirect("/CinemaProject/editCinema?id=" + this.cinema.getIdCinema());
         }
