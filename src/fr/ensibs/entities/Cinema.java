@@ -28,7 +28,9 @@ public class Cinema implements Serializable {
     )
     private List<Employee> employees = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "cinemas")
+    @ManyToMany(mappedBy = "cinemas",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
     private List<Movie> movies = new Vector<>();
 
     public Cinema() {

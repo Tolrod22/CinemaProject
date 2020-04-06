@@ -73,8 +73,8 @@ public class ManageCinema extends HttpServlet {
             response.sendRedirect("/CinemaProject/manageMovie?id=" + request.getParameter("idMovieToManage"));
         } else if (request.getParameter("idCinemaToAddMovie") != null) {
             response.sendRedirect("/CinemaProject/addMovie?id=" + this.cinema.getIdCinema());
-        } else if (request.getParameter("idMovieToRemove") != null) {
-            this.movieService.removeMovie(Long.parseLong(request.getParameter("idMovieToRemove")), this.cinema.getIdCinema());
+        } else if (request.getParameter("idMovieToDelete") != null) {
+            this.movieService.removeMovie(Long.parseLong(request.getParameter("idMovieToDelete")), this.cinema.getIdCinema());
             response.sendRedirect("/CinemaProject/manageCinema?id=" + this.cinema.getIdCinema());
         } else if (request.getParameter("idCinemaToEdit") != null) {
             response.sendRedirect("/CinemaProject/editCinema?id=" + this.cinema.getIdCinema());

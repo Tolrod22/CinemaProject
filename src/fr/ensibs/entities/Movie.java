@@ -24,8 +24,6 @@ public class Movie implements Serializable {
 
     @OneToMany(
             mappedBy = "movie",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
             fetch = FetchType.EAGER
     )
     private List<Ticket> tickets = new ArrayList<>();

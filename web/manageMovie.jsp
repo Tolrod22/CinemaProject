@@ -18,7 +18,6 @@
                         <input type="hidden" name="idCinemaToEdit" value="${cinema.idCinema}"/>
                         <button class="waves-effect waves-light blue darken-4"><i
                                 class="material-icons">edit</i></button>
-
                     </form>
                 </li>
             </ul>

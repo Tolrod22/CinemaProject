@@ -45,7 +45,13 @@ public class MovieService implements MovieServiceLocal, MovieServiceRemote {
     @Override
     public void removeMovie(Long id, Long idCinema) {
         Movie toRemove = em.createQuery("SELECT m FROM Movie m WHERE m.idMovie = :movieId", Movie.class).setParameter("movieId", id).getSingleResult();
-        em.remove(toRemove);
+        if(toRemove.getCinemas().size() > 1){
+            Cinema cineToRemove = (Cinema) em.createQuery("select c from Cinema c where c.idCinema = :id").setParameter("id", idCinema).getSingleResult();
+            toRemove.getCinemas().remove(cineToRemove);
+            em.merge(toRemove);
+        } else {
+            em.remove(toRemove);
+        }
         em.getEntityManagerFactory().getCache().evict(Cinema.class, idCinema);
     }
 
