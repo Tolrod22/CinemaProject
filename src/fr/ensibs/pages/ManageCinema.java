@@ -63,7 +63,7 @@ public class ManageCinema extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (request.getParameter("idEmployeeToEdit") != null) {
-            response.sendRedirect("/CinemaProject/editEmployee?id=" + request.getParameter("idEmployeeToEdit"));
+            response.sendRedirect("/CinemaProject/editEmployee?id="+cinema.getIdCinema()+"&idEmp=" + request.getParameter("idEmployeeToEdit"));
 
         } else if (request.getParameter("idEmployeeToRemove") != null) {
             this.employeeService.removeEmployee(Long.parseLong(request.getParameter("idEmployeeToRemove")), this.cinema.getIdCinema());

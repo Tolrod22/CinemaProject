@@ -14,4 +14,9 @@ public interface EmployeeServiceLocal {
     List<Employee> getAllEmployees(Cinema cinema);
 
     void removeEmployee(Long id, Long idCinema);
+
+    void editEmployee(String name, String surname, Integer age, Integer salary, Long id);
+
+    Employee getEmployeeFrom(Long idEmployee);
 }
+

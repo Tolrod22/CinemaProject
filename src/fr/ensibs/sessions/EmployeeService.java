@@ -6,6 +6,7 @@ import fr.ensibs.entities.Employee;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 
 @Stateless
@@ -36,5 +37,22 @@ public class EmployeeService implements EmployeeServiceLocal, EmployeeServiceRem
         Employee toRemove = em.createQuery("SELECT e FROM Employee e WHERE e.idEmployee = :employeeId", Employee.class).setParameter("employeeId", id).getSingleResult();
         em.remove(toRemove);
         em.getEntityManagerFactory().getCache().evict(Cinema.class, idCinema);
+    }
+
+    @Override
+    public void editEmployee(String name, String surname, Integer age, Integer salary, Long id) {
+        Employee toUpdate = getEmployeeFrom(id);
+        if(!name.equals("")) toUpdate.setName(name);
+        if(!surname.equals("")) toUpdate.setSurname(surname);
+        if(age != null) toUpdate.setAge(age);
+        if(salary != null) toUpdate.setSalary(salary);
+        em.merge(toUpdate);
+        em.getEntityManagerFactory().getCache().evict(Cinema.class, toUpdate.getCinema().getIdCinema());
+    }
+
+    @Override
+    public Employee getEmployeeFrom(Long idEmployee) {
+        Query q = em.createQuery("select e from Employee e where e.idEmployee = :id").setParameter("id", idEmployee);
+        return (Employee) q.getResultList().get(0);
     }
 }
