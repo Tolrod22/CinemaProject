@@ -20,4 +20,6 @@ public interface MovieServiceRemote {
 
     Movie getMovieByTitle(String movieTitle);
 
+    void editMovie(String title, Date startingDate, Date endingDate, Long id, Long cinemaId);
+
 }

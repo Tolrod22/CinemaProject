@@ -1,6 +1,7 @@
 package fr.ensibs.sessions;
 
 import fr.ensibs.entities.Cinema;
+import fr.ensibs.entities.Employee;
 import fr.ensibs.entities.Movie;
 
 import javax.ejb.Stateless;
@@ -39,7 +40,7 @@ public class MovieService implements MovieServiceLocal, MovieServiceRemote {
 
     @Override
     public Movie getMovieFrom(Long id) {
-        return (Movie) em.createQuery("SELECT m FROM Movie m WHERE m.idMovie = :movieId", Movie.class).setParameter("movieId", id).getResultList();
+        return em.createQuery("SELECT m FROM Movie m WHERE m.idMovie = :movieId", Movie.class).setParameter("movieId", id).getResultList().get(0);
     }
 
     @Override
@@ -63,5 +64,15 @@ public class MovieService implements MovieServiceLocal, MovieServiceRemote {
             System.out.println("No movie with this title");
             return null;
         }
+    }
+
+    @Override
+    public void editMovie(String title, Date startingDate, Date endingDate, Long id, Long cinemaId) {
+        Movie toUpdate = getMovieFrom(id);
+        if(!title.equals("")) toUpdate.setTitle(title);
+        toUpdate.setStartingDate(startingDate);
+        toUpdate.setEndingDate(endingDate);
+        em.merge(toUpdate);
+        em.getEntityManagerFactory().getCache().evict(Cinema.class, cinemaId);
     }
 }

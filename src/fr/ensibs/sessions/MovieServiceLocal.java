@@ -18,4 +18,6 @@ public interface MovieServiceLocal {
     void removeMovie(Long id, Long idCinema);
 
     Movie getMovieByTitle(String movieTitle);
+
+    void editMovie(String title, Date startingDate, Date endingDate, Long id, Long cinemaId);
 }

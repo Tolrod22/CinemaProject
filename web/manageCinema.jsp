@@ -103,7 +103,7 @@
             <td>${movie.tickets.size()}</td>
             <td>
                 <form action="manageCinema" method="post">
-                    <input type="hidden" name="idMovieToManage" value="${movie.idMovie}"/>
+                    <input type="hidden" name="idMovieToEdit" value="${movie.idMovie}"/>
                     <button class="btn-floating btn-large waves-effect waves-light blue darken-4"><i
                             class="material-icons">edit</i></button>
                 </form>
