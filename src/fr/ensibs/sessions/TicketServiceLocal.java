@@ -14,4 +14,6 @@ public interface TicketServiceLocal {
     void createTicket(Double price, Date endValidation, Integer number, Movie movie);
 
     List<Ticket> getAllTicketsFromMovie(Movie movie);
+
+    void removeTicket(Long id, Long movie);
 }

@@ -70,14 +70,19 @@ public class ManageMovie extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        try {
-            String price = request.getParameter("price");
-            Date  endValidation = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("endValidation"));
-            String number = request.getParameter("number");
-            ticketService.createTicket(Double.parseDouble(price), endValidation, Integer.parseInt(number), movie);
+        if(request.getParameter("idTicketToRemove") != null){
+            ticketService.removeTicket(Long.parseLong(request.getParameter("idTicketToRemove")), movie.getIdMovie());
             response.sendRedirect("/CinemaProject/manageMovie?idMovie=" + movie.getIdMovie()+"&id="+cinemaId);
-        } catch (ParseException e) {
-            e.printStackTrace();
+        } else {
+            try {
+                String price = request.getParameter("price");
+                Date  endValidation = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("endValidation"));
+                String number = request.getParameter("number");
+                ticketService.createTicket(Double.parseDouble(price), endValidation, Integer.parseInt(number), movie);
+                response.sendRedirect("/CinemaProject/manageMovie?idMovie=" + movie.getIdMovie()+"&id="+cinemaId);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

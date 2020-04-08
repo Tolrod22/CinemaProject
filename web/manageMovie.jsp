@@ -10,6 +10,7 @@
 <nav>
     <div class="nav-wrapper blue darken-4">
         <a href="../${pageContext.request.contextPath}" class="brand-logo center"><i class="material-icons">movie</i>EJBCineManager</a>
+<%--        TODO add a back to manageCinema button--%>
     </div>
 </nav>
 <div class="container">
@@ -47,6 +48,7 @@
             <th>Ticket number</th>
             <th>Price</th>
             <th>End validation date</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -55,6 +57,13 @@
                 <td>${ticket.idTicket}</td>
                 <td>${ticket.price}</td>
                 <td>${ticket.endValidation}</td>
+                <td>
+                    <form action="manageMovie" method="post">
+                        <input type="hidden" name="idTicketToRemove" value="${ticket.idTicket}"/>
+                        <button class="btn-floating btn-large waves-effect waves-light blue darken-4"><i
+                                class="material-icons">delete</i></button>
+                    </form>
+                </td>
             </tr>
         </c:forEach>
         </tbody>

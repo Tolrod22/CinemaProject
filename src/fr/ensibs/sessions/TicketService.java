@@ -1,5 +1,6 @@
 package fr.ensibs.sessions;
 
+import fr.ensibs.entities.Cinema;
 import fr.ensibs.entities.Employee;
 import fr.ensibs.entities.Movie;
 import fr.ensibs.entities.Ticket;
@@ -32,5 +33,12 @@ public class TicketService implements TicketServiceLocal, TicketServiceRemote {
     @Override
     public List<Ticket> getAllTicketsFromMovie(Movie movie) {
         return em.createQuery("SELECT t FROM Ticket t WHERE t.movie = :movieid", Ticket.class).setParameter("movieid", movie).getResultList();
+    }
+
+    @Override
+    public void removeTicket(Long id, Long movie) {
+        Ticket toRemove = em.createQuery("SELECT t FROM Ticket t WHERE t.idTicket = :ticketId", Ticket.class).setParameter("ticketId", id).getSingleResult();
+        em.remove(toRemove);
+        em.getEntityManagerFactory().getCache().evict(Movie.class, movie);
     }
 }

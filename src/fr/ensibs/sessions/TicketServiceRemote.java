@@ -15,4 +15,6 @@ public interface TicketServiceRemote {
 
     List<Ticket> getAllTicketsFromMovie(Movie movie);
 
+    void removeTicket(Long id, Long movie);
+
 }
