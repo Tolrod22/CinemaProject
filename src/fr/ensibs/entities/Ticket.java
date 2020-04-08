@@ -18,6 +18,9 @@ public class Ticket implements Serializable {
     private Date endValidation;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinTable(name = "movie_ticket",
+    joinColumns = @JoinColumn(name = "tickets_idticket"),
+    inverseJoinColumns = @JoinColumn(name = "movie_id"))
     private Movie movie;
 
     public Ticket() {

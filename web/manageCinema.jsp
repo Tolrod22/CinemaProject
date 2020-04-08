@@ -115,6 +115,13 @@
                             class="material-icons">delete</i></button>
                 </form>
             </td>
+            <td>
+                <form action="manageCinema" method="post">
+                    <input type="hidden" name="idMovieToManage" value="${movie.idMovie}"/>
+                    <button class="btn-floating btn-large waves-effect waves-light blue darken-4"><i
+                            class="material-icons">announcement</i></button>
+                </form>
+            </td>
         </tr>
         </c:forEach>
     </table>
