@@ -9,6 +9,15 @@
 <body>
 <nav>
     <div class="nav-wrapper blue darken-4">
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+            <li>
+                <form action="manageMovie" method="post">
+                    <input type="hidden" name="idCinemaToBack" value="${cinema}"/>
+                    <button class="btn-floating btn-large waves-effect waves-light blue darken-4"><i
+                            class="material-icons" type="submit">arrow_back</i></button>
+                </form>
+            </li>
+        </ul>
         <a href="../${pageContext.request.contextPath}" class="brand-logo center"><i class="material-icons">movie</i>EJBCineManager</a>
 <%--        TODO add a back to manageCinema button--%>
     </div>

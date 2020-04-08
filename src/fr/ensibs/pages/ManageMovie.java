@@ -54,6 +54,7 @@ public class ManageMovie extends HttpServlet {
             request.setAttribute("movie", movie);
             request.setAttribute("startingDateValue", start);
             request.setAttribute("endingDateValue", end);
+            request.setAttribute("cinema", cinemaId);
 
             List<Ticket> tickets = ticketService.getAllTicketsFromMovie(movie);
             request.setAttribute("tickets", tickets);
@@ -73,7 +74,10 @@ public class ManageMovie extends HttpServlet {
         if(request.getParameter("idTicketToRemove") != null){
             ticketService.removeTicket(Long.parseLong(request.getParameter("idTicketToRemove")), movie.getIdMovie());
             response.sendRedirect("/CinemaProject/manageMovie?idMovie=" + movie.getIdMovie()+"&id="+cinemaId);
-        } else {
+        } else if (request.getParameter("idCinemaToBack") != null) {
+            response.sendRedirect("/CinemaProject/manageCinema?id=" + request.getParameter("idCinemaToBack"));
+
+        }  else {
             try {
                 String price = request.getParameter("price");
                 Date  endValidation = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("endValidation"));
