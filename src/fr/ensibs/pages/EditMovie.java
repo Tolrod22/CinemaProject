@@ -1,8 +1,6 @@
 package fr.ensibs.pages;
 
-import fr.ensibs.entities.Employee;
 import fr.ensibs.entities.Movie;
-import fr.ensibs.sessions.EmployeeServiceLocal;
 import fr.ensibs.sessions.MovieServiceLocal;
 
 import javax.ejb.EJB;
@@ -12,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -39,15 +36,16 @@ public class EditMovie extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("id") != null && request.getParameter("idMovie") != null) {
-            cinemaId = request.getParameter("id");
-            movie = this.movieService.getMovieFrom(Long.parseLong(request.getParameter("idMovie")));
+            this.cinemaId = request.getParameter("id");
+            this.movie = this.movieService.getMovieFrom(Long.parseLong(request.getParameter("idMovie")));
 
-            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-            String start = format1.format(movie.getStartingDate());
-            String end = format1.format(movie.getEndingDate());
-            request.setAttribute("movie", movie);
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            String start = format.format(this.movie.getStartingDate());
+            String end = format.format(this.movie.getEndingDate());
+            request.setAttribute("movie", this.movie);
             request.setAttribute("startingDateValue", start);
             request.setAttribute("endingDateValue", end);
+            request.setAttribute("idCinema", this.cinemaId);
         }
         request.getRequestDispatcher(VIEW).forward(request, response);
     }
@@ -65,10 +63,10 @@ public class EditMovie extends HttpServlet {
             String title = request.getParameter("title");
             Date startingDate = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("startingDate"));
             Date endingDate = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("endingDate"));
-            movieService.editMovie(title, startingDate, endingDate, movie.getIdMovie(), Long.parseLong(cinemaId));
+            this.movieService.editMovie(title, startingDate, endingDate, this.movie.getIdMovie(), Long.parseLong(this.cinemaId));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        response.sendRedirect("/CinemaProject/manageCinema?id=" + cinemaId);
+        response.sendRedirect("/CinemaProject/manageCinema?id=" + this.cinemaId);
     }
 }

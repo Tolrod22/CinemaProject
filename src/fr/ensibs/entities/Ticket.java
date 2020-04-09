@@ -19,8 +19,8 @@ public class Ticket implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinTable(name = "movie_ticket",
-    joinColumns = @JoinColumn(name = "tickets_idticket"),
-    inverseJoinColumns = @JoinColumn(name = "movie_id"))
+            joinColumns = @JoinColumn(name = "tickets_idticket"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id"))
     private Movie movie;
 
     public Ticket() {

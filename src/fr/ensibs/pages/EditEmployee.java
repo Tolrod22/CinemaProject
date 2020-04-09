@@ -34,9 +34,10 @@ public class EditEmployee extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("id") != null && request.getParameter("idEmp") != null) {
-            cinemaId = request.getParameter("id");
-            employee = this.employeeService.getEmployeeFrom(Long.parseLong(request.getParameter("idEmp")));
-            request.setAttribute("employee", employee);
+            this.cinemaId = request.getParameter("id");
+            this.employee = this.employeeService.getEmployeeFrom(Long.parseLong(request.getParameter("idEmp")));
+            request.setAttribute("employee", this.employee);
+            request.setAttribute("idCinema", this.cinemaId);
         }
         request.getRequestDispatcher(VIEW).forward(request, response);
     }
@@ -50,12 +51,19 @@ public class EditEmployee extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Integer tmpAge = null;
-        Integer tmpSalary = null;
-        if (request.getParameter("age").length() > 0) tmpAge = Integer.parseInt(request.getParameter("age"));
-        if (request.getParameter("salary").length() > 0) tmpSalary = Integer.parseInt(request.getParameter("salary"));
-
-        employeeService.editEmployee(request.getParameter("name"), request.getParameter("surname"), tmpAge, tmpSalary, employee.getIdEmployee());
-        response.sendRedirect("/CinemaProject/manageCinema?id=" + cinemaId);
+        try {
+            Integer tmpAge = null;
+            Integer tmpSalary = null;
+            if (request.getParameter("age").length() > 0) {
+                tmpAge = Integer.parseInt(request.getParameter("age"));
+            }
+            if (request.getParameter("salary").length() > 0) {
+                tmpSalary = Integer.parseInt(request.getParameter("salary"));
+            }
+            this.employeeService.editEmployee(request.getParameter("name"), request.getParameter("surname"), tmpAge, tmpSalary, employee.getIdEmployee());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        response.sendRedirect("/CinemaProject/manageCinema?id=" + this.cinemaId);
     }
 }

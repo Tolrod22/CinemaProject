@@ -1,9 +1,7 @@
 package fr.ensibs.pages;
 
-import fr.ensibs.entities.Cinema;
 import fr.ensibs.entities.Movie;
 import fr.ensibs.entities.Ticket;
-import fr.ensibs.sessions.CinemaServiceLocal;
 import fr.ensibs.sessions.MovieServiceLocal;
 import fr.ensibs.sessions.TicketServiceLocal;
 
@@ -45,18 +43,18 @@ public class ManageMovie extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (request.getParameter("id") != null && request.getParameter("idMovie") != null) {
-            cinemaId = request.getParameter("id");
-            movie = this.movieService.getMovieFrom(Long.parseLong(request.getParameter("idMovie")));
+            this.cinemaId = request.getParameter("id");
+            this.movie = this.movieService.getMovieFrom(Long.parseLong(request.getParameter("idMovie")));
 
             SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-            String start = format1.format(movie.getStartingDate());
-            String end = format1.format(movie.getEndingDate());
-            request.setAttribute("movie", movie);
+            String start = format1.format(this.movie.getStartingDate());
+            String end = format1.format(this.movie.getEndingDate());
+            request.setAttribute("movie", this.movie);
             request.setAttribute("startingDateValue", start);
             request.setAttribute("endingDateValue", end);
-            request.setAttribute("cinema", cinemaId);
+            request.setAttribute("cinema", this.cinemaId);
 
-            List<Ticket> tickets = ticketService.getAllTicketsFromMovie(movie);
+            List<Ticket> tickets = this.ticketService.getAllTicketsFromMovie(this.movie);
             request.setAttribute("tickets", tickets);
         }
         request.getRequestDispatcher(VIEW).forward(request, response);
@@ -71,22 +69,26 @@ public class ManageMovie extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if(request.getParameter("idTicketToRemove") != null){
-            ticketService.removeTicket(Long.parseLong(request.getParameter("idTicketToRemove")), movie.getIdMovie());
-            response.sendRedirect("/CinemaProject/manageMovie?idMovie=" + movie.getIdMovie()+"&id="+cinemaId);
+        if (request.getParameter("idTicketToRemove") != null) {
+            try {
+                this.ticketService.removeTicket(Long.parseLong(request.getParameter("idTicketToRemove")), this.movie.getIdMovie());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            response.sendRedirect("/CinemaProject/manageMovie?idMovie=" + this.movie.getIdMovie() + "&id=" + this.cinemaId);
         } else if (request.getParameter("idCinemaToBack") != null) {
             response.sendRedirect("/CinemaProject/manageCinema?id=" + request.getParameter("idCinemaToBack"));
 
-        }  else {
+        } else {
             try {
                 String price = request.getParameter("price");
-                Date  endValidation = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("endValidation"));
+                Date endValidation = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("endValidation"));
                 String number = request.getParameter("number");
-                ticketService.createTicket(Double.parseDouble(price), endValidation, Integer.parseInt(number), movie);
-                response.sendRedirect("/CinemaProject/manageMovie?idMovie=" + movie.getIdMovie()+"&id="+cinemaId);
+                this.ticketService.createTicket(Double.parseDouble(price), endValidation, Integer.parseInt(number), this.movie);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+            response.sendRedirect("/CinemaProject/manageMovie?idMovie=" + this.movie.getIdMovie() + "&id=" + this.cinemaId);
         }
     }
 }

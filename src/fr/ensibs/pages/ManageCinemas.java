@@ -45,17 +45,25 @@ public class ManageCinemas extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         if (request.getParameter("cinemaName") != null) {
-            String name = request.getParameter("cinemaName");
-            String address = request.getParameter("cinemaAddress");
-            String postalCode = request.getParameter("cinemaPostalCode");
-            this.cinemaService.createCinema(name, address, Integer.parseInt(postalCode));
+            try {
+                String name = request.getParameter("cinemaName");
+                String address = request.getParameter("cinemaAddress");
+                String postalCode = request.getParameter("cinemaPostalCode");
+                this.cinemaService.createCinema(name, address, Integer.parseInt(postalCode));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             response.sendRedirect("/CinemaProject/manageCinemas");
 
         } else if (request.getParameter("idCinemaToManage") != null) {
             response.sendRedirect("/CinemaProject/manageCinema?id=" + request.getParameter("idCinemaToManage"));
 
         } else if (request.getParameter("idCinemaToDelete") != null) {
-            cinemaService.removeCinema(Long.parseLong(request.getParameter("idCinemaToDelete")));
+            try {
+                this.cinemaService.removeCinema(Long.parseLong(request.getParameter("idCinemaToDelete")));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             response.sendRedirect("/CinemaProject/manageCinemas");
         }
     }

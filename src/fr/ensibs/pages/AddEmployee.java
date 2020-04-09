@@ -35,7 +35,10 @@ public class AddEmployee extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.cinema = this.cinemaService.getCinemaFrom(Long.parseLong(request.getParameter("id")));
+        if (request.getParameter("id") != null) {
+            this.cinema = this.cinemaService.getCinemaFrom(Long.parseLong(request.getParameter("id")));
+            request.setAttribute("cinema", this.cinema);
+        }
         request.getRequestDispatcher(VIEW).forward(request, response);
     }
 

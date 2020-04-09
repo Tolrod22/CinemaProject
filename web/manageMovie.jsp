@@ -2,49 +2,50 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Movie management</title>
+    <title>${movie.title} Management</title>
     <link rel="stylesheet" href="css/materialize.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-<nav>
-    <div class="nav-wrapper blue darken-4">
-        <ul id="nav-mobile" class="left hide-on-med-and-down">
-            <li>
-                <form action="manageMovie" method="post">
-                    <input type="hidden" name="idCinemaToBack" value="${cinema}"/>
-                    <button class="btn-floating btn-large waves-effect waves-light blue darken-4"><i
-                            class="material-icons" type="submit">arrow_back</i></button>
-                </form>
-            </li>
-        </ul>
-        <a href="../${pageContext.request.contextPath}" class="brand-logo center"><i class="material-icons">movie</i>EJBCineManager</a>
-<%--        TODO add a back to manageCinema button--%>
-    </div>
-</nav>
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper blue darken-4">
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li>
+                    <form action="manageMovie" method="post">
+                        <input type="hidden" name="idCinemaToBack" value="${cinema}"/>
+                        <button class="waves-effect btn-flat waves-red white-text"
+                                style="height: 64px"><i
+                                class="material-icons">arrow_back</i></button>
+                    </form>
+                </li>
+            </ul>
+            <a href="" class="brand-logo center"><i class="material-icons">movie</i>${movie.title} Management</a>
+        </div>
+    </nav>
+</div>
 <div class="container">
-    <h2>${movie.title} Management</h2>
     <h4>Add tickets :</h4>
     <div class="row">
         <form class="col s12" action="manageMovie" method="post">
             <div class="row">
                 <div class="input-field col s2">
                     <label for="priceInput"></label><input placeholder="Price" id="priceInput" type="number" step="0.01"
-                                                          name="price" class="validate">
+                                                           name="price" class="validate">
                 </div>
                 <div class="input-field col s6">
                     <label for="dateInput"></label><input placeholder="EndValidation" id="dateInput" type="date"
-                                                             name="endValidation" class="validate">
+                                                          name="endValidation" class="validate">
                 </div>
                 <div class="input-field col s2">
                     <label for="numberInput"></label><input placeholder="Number of tickets" id="numberInput"
-                                                                type="number" name="number"
-                                                                class="validate">
+                                                            type="number" name="number"
+                                                            class="validate">
                 </div>
                 <div class="input-field col s2">
-                    <button class="btn waves-effect waves-light blue darken-4" type="submit" name="action"
+                    <button class="btn waves-effect waves-light green darken-1" type="submit" name="action"
                             value="Create">Create
-                        <i class="material-icons right">add</i>
+                        <i class="material-icons right">send</i>
                     </button>
                 </div>
             </div>
@@ -69,7 +70,7 @@
                 <td>
                     <form action="manageMovie" method="post">
                         <input type="hidden" name="idTicketToRemove" value="${ticket.idTicket}"/>
-                        <button class="btn-floating btn-large waves-effect waves-light blue darken-4"><i
+                        <button class="btn-floating btn-large waves-effect waves-light red darken-4"><i
                                 class="material-icons">delete</i></button>
                     </form>
                 </td>

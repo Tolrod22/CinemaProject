@@ -7,11 +7,12 @@
 </head>
 <body>
 <div class="navbar-fixed">
-<nav>
-    <div class="nav-wrapper blue darken-4">
-        <a href="../${pageContext.request.contextPath}" class="brand-logo center"><i class="material-icons">movie</i>EJBCineManager</a>
-    </div>
-</nav>
+    <nav>
+        <div class="nav-wrapper blue darken-4">
+            <a href="../${pageContext.request.contextPath}" class="brand-logo center"><i
+                    class="material-icons">movie</i>EJBCineManager</a>
+        </div>
+    </nav>
 </div>
 <div class="container">
     <h2>Welcome on EJBCineManager</h2>

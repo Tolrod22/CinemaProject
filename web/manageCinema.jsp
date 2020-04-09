@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>${cinema.name} : Management</title>
+    <title>${cinema.name} Management</title>
     <link rel="stylesheet" href="css/materialize.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -10,13 +10,20 @@
 <div class="navbar-fixed">
     <nav>
         <div class="nav-wrapper blue darken-4">
-            <a href="../${pageContext.request.contextPath}" class="brand-logo center"><i
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li>
+                    <a href="../${pageContext.request.contextPath}/manageCinemas"><i
+                            class="material-icons">arrow_back</i></a>
+                </li>
+            </ul>
+            <a href="" class="brand-logo center"><i
                     class="material-icons">movie</i>${cinema.name}</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li>
-                    <form action="manageCinema" method="post">
+                    <form action="manageCinema" method="post" style="margin-bottom: 0">
                         <input type="hidden" name="idCinemaToEdit" value="${cinema.idCinema}"/>
-                        <button class="btn-floating btn-large waves-effect waves-light blue darken-4"><i
+                        <button class="waves-effect btn-flat waves-red white-text"
+                                style="height: 64px"><i
                                 class="material-icons">edit</i></button>
 
                     </form>
@@ -31,7 +38,7 @@
     <form action="manageCinema" method="post">
         <h4>Add an employee :
             <input type="hidden" name="idCinemaToAddEmployee" value="${cinema.idCinema}"/>
-            <button class="btn-floating btn-large waves-effect waves-light blue darken-4"><i
+            <button class="btn-floating btn-large waves-effect waves-light green darken-1"><i
                     class="material-icons">add</i></button>
         </h4>
     </form>
@@ -65,7 +72,7 @@
             <td>
                 <form action="manageCinema" method="post">
                     <input type="hidden" name="idEmployeeToRemove" value="${employee.idEmployee}"/>
-                    <button class="btn-floating btn-large waves-effect waves-light blue darken-4"><i
+                    <button class="btn-floating btn-large waves-effect waves-light red darken-4"><i
                             class="material-icons">delete</i></button>
                 </form>
             </td>
@@ -78,7 +85,7 @@
     <form action="manageCinema" method="post">
         <h4>Add a movie :
             <input type="hidden" name="idCinemaToAddMovie" value="${cinema.idCinema}"/>
-            <button class="btn-floating btn-large waves-effect waves-light blue darken-4"><i
+            <button class="btn-floating btn-large waves-effect waves-light green darken-1"><i
                     class="material-icons">add</i></button>
         </h4>
     </form>
@@ -110,16 +117,16 @@
             </td>
             <td>
                 <form action="manageCinema" method="post">
-                    <input type="hidden" name="idMovieToDelete" value="${movie.idMovie}"/>
+                    <input type="hidden" name="idMovieToManage" value="${movie.idMovie}"/>
                     <button class="btn-floating btn-large waves-effect waves-light blue darken-4"><i
-                            class="material-icons">delete</i></button>
+                            class="material-icons">more</i></button>
                 </form>
             </td>
             <td>
                 <form action="manageCinema" method="post">
-                    <input type="hidden" name="idMovieToManage" value="${movie.idMovie}"/>
-                    <button class="btn-floating btn-large waves-effect waves-light blue darken-4"><i
-                            class="material-icons">announcement</i></button>
+                    <input type="hidden" name="idMovieToDelete" value="${movie.idMovie}"/>
+                    <button class="btn-floating btn-large waves-effect waves-light red darken-4"><i
+                            class="material-icons">delete</i></button>
                 </form>
             </td>
         </tr>

@@ -7,14 +7,21 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-<nav>
-    <div class="nav-wrapper blue darken-4">
-        <a href="../${pageContext.request.contextPath}" class="brand-logo center"><i class="material-icons">movie</i>EJBCineManager</a>
-    </div>
-</nav>
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper blue darken-4">
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li>
+                    <a href="../${pageContext.request.contextPath}"><i
+                            class="material-icons">arrow_back</i></a>
+                </li>
+            </ul>
+            <a href="" class="brand-logo center"><i
+                    class="material-icons">movie</i>Cinemas Management</a>
+        </div>
+    </nav>
+</div>
 <div class="container">
-    <h2>Cinemas Management</h2>
-
     <h4>Add a cinema :</h4>
     <div class="row">
         <form class="col s12" action="manageCinemas" method="post">
@@ -34,7 +41,7 @@
                                                                 class="validate">
                 </div>
                 <div class="input-field col s2">
-                    <button class="btn waves-effect waves-light blue darken-4" type="submit" name="action"
+                    <button class="btn waves-effect waves-light green darken-1" type="submit" name="action"
                             value="Create">Create
                         <i class="material-icons right">send</i>
                     </button>
@@ -74,7 +81,7 @@
                 <td>
                     <form action="manageCinemas" method="post">
                         <input type="hidden" name="idCinemaToDelete" value="${cinema.idCinema}"/>
-                        <button class="btn-floating btn-large waves-effect waves-light blue darken-4"><i
+                        <button class="btn-floating btn-large waves-effect waves-light red darken-4"><i
                                 class="material-icons">delete</i></button>
                     </form>
                 </td>

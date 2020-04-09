@@ -1,11 +1,7 @@
 package fr.ensibs.pages;
 
 import fr.ensibs.entities.Cinema;
-import fr.ensibs.entities.Employee;
-import fr.ensibs.entities.Movie;
 import fr.ensibs.sessions.CinemaServiceLocal;
-import fr.ensibs.sessions.EmployeeServiceLocal;
-import fr.ensibs.sessions.MovieServiceLocal;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -14,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name = "editCinema", urlPatterns = {"/editCinema"})
 public class EditCinema extends HttpServlet {
@@ -52,9 +47,14 @@ public class EditCinema extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Integer tmp = null;
-        if(request.getParameter("postalCode").length()>0) tmp = Integer.parseInt(request.getParameter("postalCode"));
-        cinemaService.editCinema(cinema.getIdCinema(), request.getParameter("name"), request.getParameter("address"), tmp);
-        response.sendRedirect("/CinemaProject/manageCinema?id=" + cinema.getIdCinema());
+        try {
+            Integer tmp = null;
+            if (request.getParameter("postalCode").length() > 0)
+                tmp = Integer.parseInt(request.getParameter("postalCode"));
+            this.cinemaService.editCinema(this.cinema.getIdCinema(), request.getParameter("name"), request.getParameter("address"), tmp);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        response.sendRedirect("/CinemaProject/manageCinema?id=" + this.cinema.getIdCinema());
     }
 }
