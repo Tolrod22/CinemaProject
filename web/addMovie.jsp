@@ -52,6 +52,42 @@
             </div>
         </form>
     </div>
+    <h4>Search for an existing movie :</h4>
+    <div class="row">
+        <form class="col s12" action="addMovie" method="post">
+            <div class="row">
+                <div class="input-field col s4">
+                    <label for="titleSearch"></label>
+                    <input placeholder="Name" id="titleSearch" type="text" name="titleSearch"
+                           class="validate">
+                </div>
+                <div class="input-field col s2">
+                    <button class="btn waves-effect waves-light green darken-1" type="submit" name="action"
+                            value="Search">Search
+                        <i class="material-icons right">Search</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <c:forEach items="${movies}" var="movie">
+        <tr>
+            <td>${movie.title}</td>
+            <td>${movie.startingDate}</td>
+            <td>${movie.endingDate}</td>
+            <td>${movie.tickets.size()}</td>
+            <td>${movie.cinemas.size()}</td>
+            <td>
+                <form action="addMovie" method="post">
+                    <input type="hidden" name="movieToAddFromSearch" value="${movie.idMovie}"/>
+                    <button class="btn waves-effect waves-light green darken-1" type="submit" name="action"
+                            value="add">Add
+                        <i class="material-icons right">add</i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+    </c:forEach>
 </div>
 </body>
 </html>
