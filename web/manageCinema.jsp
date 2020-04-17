@@ -106,7 +106,6 @@
         <tr>
             <td>${movie.title}</td>
             <td>${movie.startingDate} to ${movie.endingDate}</td>
-                <%-- TODO FORMATER AFFICHAGE DATES --%>
             <td>${movie.tickets.size()}</td>
             <td>
                 <form action="manageCinema" method="post">
